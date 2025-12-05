@@ -93,7 +93,7 @@
                                                     <td>{$animal['NOMHAB']}</td>
                                                     <td><img src='./assets/{$animal['IMAGE']}' width='50'></td>
                                                     <td class='d-flex gap-2'>
-                                                        <a href='controllers/edit_animale.php?id={$animal['IDanimal']}' class='btn btn-primary btn-sm'>Edit</a>
+                                                        <a href='controllers/edit_animal.php?id={$animal['IDanimal']}' class='btn btn-primary btn-sm'>Edit</a>
                                                         <form action='./controllers/delete_animal.php' method='post'>
                                                             <input type='hidden' name='IDanimal' value='{$animal['IDanimal']}'/>
                                                             <button type='submit' class='btn btn-danger btn-sm'>Delete</button>
