@@ -65,53 +65,104 @@
             </section>
 
             <!-- Animals List -->
-            <section id="animals">
-                <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between">
-                        <span><i class="fas fa-table me-1"></i>Animals List</span>
-                        <a href="#add-animal" class="btn btn-success btn-sm">+ Add Animal</a>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Habitat</th>
-                                    <th>Image</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php 
-                                    if(count($animals) > 0){
-                                        foreach($animals as $animal){
-                                            echo "
-                                                <tr>
-                                                    <td>{$animal['NOM']}</td>
-                                                    <td>{$animal['Type_alimentaire']}</td>
-                                                    <td>{$animal['NOMHAB']}</td>
-                                                    <td><img src='./assets/{$animal['IMAGE']}' width='50'></td>
-                                                    <td class='d-flex gap-2'>
-                                                        <a href='controllers/edit_animal.php?id={$animal['IDanimal']}' class='btn btn-primary btn-sm'>Edit</a>
-                                                        <form action='/controllers/delete_animal.php' method='post'>
-                                                            <input type='hidden' name='IDanimal' value='{$animal['IDanimal']}'/>
-                                                            <button type='submit' class='btn btn-danger btn-sm'>Delete</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                ";
-                                        }
-                                    }
-                                    else{
-                                        echo "NO ANIMALS FOR NOW";
-                                    }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
+<section id="animals">
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between">
+            <span><i class="fas fa-table me-1"></i>Animals List</span>
+            <a href="#add-animal" class="btn btn-success btn-sm">+ Add Animal</a>
+        </div>
+        <div class="card-body">
+            <!-- Filters -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="filterHabitat" class="form-label">Filter by Habitat</label>
+                    <select id="filterHabitat" class="form-select">
+                        <option value="all">All Habitats</option>
+                        <?php
+                        foreach($habitats as $habitat){
+                            echo "<option value='{$habitat['NOMHAB']}'>{$habitat['NOMHAB']}</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
-            </section>
+                <div class="col-md-6">
+                    <label for="filterType" class="form-label">Filter by Type</label>
+                    <select id="filterType" class="form-select">
+                        <option value="all">All Types</option>
+                        <option value="Carnivore">Carnivore</option>
+                        <option value="Herbivore">Herbivore</option>
+                        <option value="Omnivore">Omnivore</option>
+                    </select>
+                </div>
+            </div>
+
+            <table class="table table-striped" id="animalsTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Habitat</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        if(count($animals) > 0){
+                            foreach($animals as $animal){
+                                echo "
+                                    <tr>
+                                        <td>{$animal['NOM']}</td>
+                                        <td>{$animal['Type_alimentaire']}</td>
+                                        <td>{$animal['NOMHAB']}</td>
+                                        <td><img src='./assets/{$animal['IMAGE']}' width='50'></td>
+                                        <td class='d-flex gap-2'>
+                                            <a href='controllers/edit_animal.php?id={$animal['IDanimal']}' class='btn btn-primary btn-sm'>Edit</a>
+                                            <form action='/controllers/delete_animal.php' method='post'>
+                                                <input type='hidden' name='IDanimal' value='{$animal['IDanimal']}'/>
+                                                <button type='submit' class='btn btn-danger btn-sm'>Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                ";
+                            }
+                        }
+                        else{
+                            echo "NO ANIMALS FOR NOW";
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+    const filterHabitat = document.getElementById('filterHabitat');
+    const filterType = document.getElementById('filterType');
+    const table = document.getElementById('animalsTable').getElementsByTagName('tbody')[0];
+
+    filterHabitat.addEventListener('change', applyFilters);
+    filterType.addEventListener('change', applyFilters);
+
+    function applyFilters() {
+        const habitatVal = filterHabitat.value.toLowerCase();
+        const typeVal = filterType.value.toLowerCase();
+
+        Array.from(table.rows).forEach(row => {
+            const habitat = row.cells[2].textContent.toLowerCase();
+            const type = row.cells[1].textContent.toLowerCase();
+
+            if ((habitatVal === 'all' || habitat.includes(habitatVal)) &&
+                (typeVal === 'all' || type.includes(typeVal))) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+</script>
+
 
             <!-- Add Animal -->
             <section id="add-animal">
