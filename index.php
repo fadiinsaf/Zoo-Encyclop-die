@@ -94,7 +94,7 @@
                                                     <td><img src='./assets/{$animal['IMAGE']}' width='50'></td>
                                                     <td class='d-flex gap-2'>
                                                         <a href='controllers/edit_animal.php?id={$animal['IDanimal']}' class='btn btn-primary btn-sm'>Edit</a>
-                                                        <form action='./controllers/delete_animal.php' method='post'>
+                                                        <form action='/controllers/delete_animal.php' method='post'>
                                                             <input type='hidden' name='IDanimal' value='{$animal['IDanimal']}'/>
                                                             <button type='submit' class='btn btn-danger btn-sm'>Delete</button>
                                                         </form>
@@ -175,9 +175,12 @@
                                                         <td>{$habitat['NOMHAB']}</td>
                                                         <td>{$habitat['Description_hab']}</td>
 
-                                                        <td>
-                                                            <a href='#' class='btn btn-primary btn-sm'>Edit</a>
-                                                            <button class='btn btn-danger btn-sm'>Delete</button>
+                                                        <td class='d-flex gap-2'>
+                                                            <a href='/controllers/edit_habitat.php?id={$habitat['IDHAB']}' class='btn btn-primary btn-sm'>Edit</a>
+                                                            <form method='post' action='/controllers/delete_habitat.php'>
+                                                                <input type='hidden' name='IDHAB' value='{$habitat['IDHAB']}'>
+                                                                <button type='submit' class='btn btn-danger btn-sm'>Delete</button>
+                                                            </form>
                                                         </td>
                                                 </tr>
                                             ";
@@ -196,34 +199,19 @@
             <!-- Add Habitat -->
             <section id="add-habitat">
                 <div class="card mb-4">
-                    <div class="card-header"><i class="fas fa-plus me-1"></i> Add New Animal</div>
+                    <div class="card-header"><i class="fas fa-plus me-1"></i> Add New Habitat</div>
                     <div class="card-body">
-                        <form>
+                        <form method="post" action="/controllers/add_habitat.php">
                             <div class="mb-3">
-                                <label class="form-label">Animal Name</label>
-                                <input type="text" class="form-control" placeholder="e.g. Lion">
+                                <label class="form-label">Habita Name</label>
+                                <input type="text" class="form-control" name="NOMHAB" placeholder="Jangle">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Type</label>
-                                <select class="form-select">
-                                    <option>Carnivore</option>
-                                    <option>Herbivore</option>
-                                    <option>Omnivore</option>
-                                </select>
+                                <label class="form-label">Habitat Description</label>
+                                <input type="text" class="form-control" name="Description_hab" placeholder="Description">
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Habitat</label>
-                                <select class="form-select">
-                                    <option>Forest</option>
-                                    <option>Savannah</option>
-                                    <option>Desert</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Image</label>
-                                <input type="file" class="form-control">
-                            </div>
-                            <button class="btn btn-success">Add Animal</button>
+
+                            <button type="submit" class="btn btn-success">Add Habitat</button>
                         </form>
                     </div>
                 </div>
