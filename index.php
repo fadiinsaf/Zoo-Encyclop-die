@@ -32,7 +32,7 @@
         <div class="sidebar p-3">
             <h2>Zoo Admin</h2>
             <a href="#dashboard">Dashboard</a>
-            <a href="#animals">Animals</a>
+            <a href="kid.php">Animals</a>
             <a href="#add-animal">Add Animal</a>
             <a href="#habitats">Habitats</a>
         </div>
