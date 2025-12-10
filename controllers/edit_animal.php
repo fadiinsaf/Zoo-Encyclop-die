@@ -53,7 +53,7 @@
                 <div class="card mb-4">
                     <div class="card-header"><i class="fas fa-plus me-1"></i> Update Animal</div>
                     <div class="card-body">
-                        <form action="./controllers/update_animal.php" enctype="multipart/form-data" method="post">
+                        <form action="update_animal.php" enctype="multipart/form-data" method="post">
                             <input type="hidden" name="IDanimal" value="<?= $IDanimal ?>">
                             <div class="mb-3">
                                 <label class="form-label">Animal Name</label>
